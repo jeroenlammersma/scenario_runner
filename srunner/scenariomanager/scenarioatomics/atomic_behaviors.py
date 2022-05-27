@@ -1620,6 +1620,63 @@ class StopVehicle(AtomicBehavior):
         return new_status
 
 
+class BrakeVehicle(AtomicBehavior):
+    def __init__(self, actor, brake_value, duration, name="Breaking"):
+        """
+        Setup _actor and maximum braking value
+        """
+        super(BrakeVehicle, self).__init__(name, actor)
+        self.logger.debug("%s.__init__()" % (self.__class__.__name__))
+        self._control, self._type = get_actor_control(actor)
+        if self._type == 'walker':
+            self._control.speed = 0
+        self._brake_value = brake_value
+        self._duration = duration
+
+    def initialise(self):
+        self._start_time = GameTime.get_time()
+        super(BrakeVehicle, self).initialise()
+
+    def update(self):
+        """
+        Set brake to brake_value for the provided duration
+        """
+        new_status = py_trees.common.Status.RUNNING
+
+        if self._type == 'vehicle':
+            if CarlaDataProvider.get_velocity(self._actor) > EPSILON:
+                self._control.brake = self._brake_value
+            else:
+                new_status = py_trees.common.Status.SUCCESS
+                self._control.brake = 0
+        else:
+            new_status = py_trees.common.Status.SUCCESS
+        
+        if GameTime.get_time() - self._start_time > self._duration:
+            new_status = py_trees.common.Status.SUCCESS
+
+        self._actor.apply_control(self._control)
+
+        self.logger.debug("%s.update()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
+
+        return new_status
+
+    def terminate(self, new_status):
+        """
+        On termination of this behavior, the throttle should be set to current
+        velocity and brake should be set to 0. to avoid further braking.
+        """
+
+        if self._type == 'vehicle':
+            self._control.brake = 0.
+            self._control.throttle = CarlaDataProvider.get_velocity(self._actor)
+        elif self._type == 'walker':
+            self._control.speed = 0.
+        if self._actor is not None and self._actor.is_alive:
+            self._actor.apply_control(self._control)
+        super(BrakeVehicle, self).terminate(new_status)
+
+
 class SyncArrival(AtomicBehavior):
 
     """
