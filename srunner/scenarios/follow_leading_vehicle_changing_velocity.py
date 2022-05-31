@@ -1,4 +1,3 @@
-from email import policy
 import random
 from cv2 import add
 
@@ -8,8 +7,7 @@ import carla
 
 from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
-                                                                      ActorDestroy, BrakeVehicle, ChangeActorTargetSpeed, HandBrakeVehicle, Idle,
-                                                                      KeepVelocity,
+                                                                      ActorDestroy, BrakeVehicle,
                                                                       StopVehicle,
                                                                       WaypointFollower)
 from srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest
@@ -17,12 +15,11 @@ from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import (I
                                                                                InTriggerDistanceToNextIntersection,
                                                                                DriveDistance,
                                                                                StandStill)
-from srunner.scenariomanager.timer import TimeOut
 from srunner.scenarios.basic_scenario import BasicScenario
-from srunner.tools.scenario_helper import generate_target_waypoint, generate_target_waypoint_list, get_waypoint_in_distance
+from srunner.tools.scenario_helper import generate_target_waypoint_list, get_waypoint_in_distance
 
 
-class FollowLeadingVehicleChangingVelocity(BasicScenario):
+class FollowLeadingVehicleChangingVelocityAndStop(BasicScenario):
 
     timeout = 120            # Timeout of scenario in seconds
 
@@ -44,7 +41,7 @@ class FollowLeadingVehicleChangingVelocity(BasicScenario):
         # Timeout of scenario in seconds
         self.timeout = timeout
 
-        super(FollowLeadingVehicleChangingVelocity, self).__init__("FollowVehicleChangingVelocity",
+        super(FollowLeadingVehicleChangingVelocityAndStop, self).__init__("FollowVehicleChangingVelocity",
                                                    ego_vehicles,
                                                    config,
                                                    world,

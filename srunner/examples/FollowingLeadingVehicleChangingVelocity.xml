@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <scenarios>
-    <scenario name="FollowLeadingVehicleChangingVelocity_1" type="FollowLeadingVehicleChangingVelocity" town="Town01">
+    <scenario name="FollowLeadingVehicleChangingVelocityAndStop_1" type="FollowLeadingVehicleChangingVelocityAndStop" town="Town01">
         <ego_vehicle x="384" y="-2.2" z="0.2" yaw="180" model="vehicle.lincoln.mkz_2017" />
         <weather cloudiness="0" precipitation="0" precipitation_deposits="0" wind_intensity="0" sun_azimuth_angle="0" sun_altitude_angle="75" />
     </scenario>
