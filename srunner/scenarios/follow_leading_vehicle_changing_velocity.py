@@ -377,7 +377,7 @@ class FollowLeadingVehicleTailgating(BasicScenario):
 
     self._map = CarlaDataProvider.get_map()
     self._ego_vehicle_transform = config.trigger_points[0]
-    self._first_vehicle_speed = 27.8
+    self._first_vehicle_speed = 33.3 
     self._first_vehicle_x_offset = 50
     self._other_actor_max_brake = 1.0
     self._other_actor_transform = None
