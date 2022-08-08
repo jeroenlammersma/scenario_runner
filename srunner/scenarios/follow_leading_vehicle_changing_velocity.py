@@ -49,7 +49,7 @@ class FollowLeadingVehicleChangingVelocity(BasicScenario):
     self._map = CarlaDataProvider.get_map()
     self._ego_vehicle_transform = config.trigger_points[0]
     self._first_vehicle_speed = 8
-    self._first_vehicle_x_offset = 40
+    self._first_vehicle_x_offset = 20
     self._other_actor_max_brake = 1.0
     self._other_actor_transform = None
     # Timeout of scenario in seconds
@@ -106,34 +106,34 @@ class FollowLeadingVehicleChangingVelocity(BasicScenario):
     # drive straight while changing velocity
     drive = py_trees.composites.Sequence(
         "Drive straight while changing velocity")
-    _drive_for_distance(self, drive, self._first_vehicle_speed, 50)
+    _drive_for_distance(self, drive, self._first_vehicle_speed, 40)
 
+    _drive_for_distance(self, drive, 10, 20)
 
-    _drive_for_distance(self, drive, 10, 40)
-    _drive_for_distance(self, drive, 12, 80)
+    _drive_for_distance(self, drive, 12, 100)
     _drive_for_distance(self, drive, 11, 20)
     _drive_for_distance(self, drive, 10, 20)
+    _drive_for_distance(self, drive, 9, 12)
+    _drive_for_distance(self, drive, 8, 12)
 
     _drive_for_distance(self, drive, 12, 10)
     _drive_for_distance(self, drive, 20, 100)
     _drive_for_distance(self, drive, 19, 10)
     _drive_for_distance(self, drive, 18, 10)
-    _drive_for_distance(self, drive, 17, 10)
     _drive_for_distance(self, drive, 16, 10)
-    _drive_for_distance(self, drive, 15, 10)
     _drive_for_distance(self, drive, 14, 10)
-    _drive_for_distance(self, drive, 13, 10)
     _drive_for_distance(self, drive, 12, 10)
-    _drive_for_distance(self, drive, 11, 8)
-    _drive_for_distance(self, drive, 10, 6)
+    _drive_for_distance(self, drive, 10, 5)
 
     _drive_for_distance(self, drive, 16, 50)
     _drive_for_distance(self, drive, 15, 20)
     _drive_for_distance(self, drive, 14, 10)
-    _drive_for_distance(self, drive, 13, 8)
-    _drive_for_distance(self, drive, 12, 8)
-    _drive_for_distance(self, drive, 11, 8)
-    _drive_for_distance(self, drive, 10, 8)
+    _drive_for_distance(self, drive, 13, 6)
+    _drive_for_distance(self, drive, 12, 6)
+    _drive_for_distance(self, drive, 11, 6)
+    _drive_for_distance(self, drive, 10, 6)
+    _drive_for_distance(self, drive, 9, 6)
+    _drive_for_distance(self, drive, 12, 70)
 
     # stop vehicle
     stop = StopVehicle(other_actor, self._other_actor_max_brake)
@@ -377,7 +377,7 @@ class FollowLeadingVehicleTailgating(BasicScenario):
 
     self._map = CarlaDataProvider.get_map()
     self._ego_vehicle_transform = config.trigger_points[0]
-    self._first_vehicle_speed = 33.3 
+    self._first_vehicle_speed = 16
     self._first_vehicle_x_offset = 50
     self._other_actor_max_brake = 1.0
     self._other_actor_transform = None
